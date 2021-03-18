@@ -1,7 +1,28 @@
-class Customer:
+class User:
+    def log(self):
+        print(self)
+
+class Teacher(User):
+    def log(self): # Override would run teach version of log 
+        print("I'm a teacher!")
+class Customer(User):
     def __init__(self, name, membership_type): # instructor and initiator # self: means "this" represant whatever customer we're creating
         self.name = name
         self.membership_type = membership_type
+    @property
+    def name(self):
+        print("get name")
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        print("set name")
+        self._name = name
+
+    @name.deleter
+    def name(self):
+        print("delete name")
+        del self._name
 
     def update_membership(self, new_membership):
         # invoke an API
@@ -24,10 +45,9 @@ class Customer:
         return False
 
     #__hash__ = None
-    #__repr__ = __str__
+    __repr__ = __str__
 
 
-customers = [Customer("Wilbert", "Gold"), Customer("Brad", "Bronze")]
-print(customers[1].membership_type)
-customers[1].update_membership("Gold")
-print(customers[1].membership_type)
+users = [Customer("Wilbert", "Gold"), Customer("John", "Silver"), Teacher()]
+for user in users:
+    user.log()
